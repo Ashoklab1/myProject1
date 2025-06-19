@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load tz %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+<section>
+    <img class="banner" src="{{ post.banner.url }}" alt="{{ post.title }}">
+    <h1>{{ post.title }}</h1>
+    <p>
+        Posted on: {% timezone "Asia/Kolkata" %}{{ post.date|date:"d M Y, h:i A" }} IST{% endtimezone %}
+    </p>
+    <p>{{ post.author }}</p>
+    <div class="post-body">
+        {{ post.body|safe }}
+    </div>
+
+    {% if post.post_images.all %}
+        <div class="image-gallery">
+            {% for image in post.post_images.all %}
+                <img src="{{ image.image.url }}" alt="Gallery image">
+            {% endfor %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

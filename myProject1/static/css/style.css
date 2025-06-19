@@ -1,0 +1,226 @@
+/* Reset and Box Model */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Theme Variables */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --link-color: #007bff;
+    --nav-bg: #f1f1f1;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --link-color: #80d0ff;
+    --nav-bg: #1f1f1f;
+}
+
+/* Base Styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    padding: 0 1rem 2rem;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+a:hover {
+    opacity: 0.85;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+#theme-toggle {
+    background: transparent;
+    border: 1px solid var(--text-color);
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+#theme-toggle:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Responsive Navbar */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .theme-toggle-container {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+}
+
+/* Logout Button */
+.logout-button {
+    font-size: 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.logout-button:hover {
+    opacity: 0.85;
+}
+
+/* Main Layout */
+main {
+    padding: 2rem 1rem;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Typography */
+h1, h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Images */
+.banner, .post-banner {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+.post-banner {
+    max-width: 500px;
+    height: 250px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.image-gallery img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Forms */
+.form-with-validation {
+    max-width: 600px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background-color: #111;
+    border-radius: 8px;
+}
+
+.form-with-validation div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-with-validation input,
+.form-with-validation select,
+.form-with-validation textarea {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-submit {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #44B78B;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-submit:hover {
+    background-color: #3aa379;
+}
+
+/* Help Text and Errors */
+.helptext {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    color: #ccc;
+}
+
+.helptext ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.errorlist {
+    color: #f00;
+    margin-left: 2rem;
+}
+
+.errorlist li::marker {
+    content: '🚨 ';
+}

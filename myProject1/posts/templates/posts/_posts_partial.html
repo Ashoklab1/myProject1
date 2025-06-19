@@ -1,0 +1,23 @@
+<div id="post-list">
+    {% for post in page_obj %}
+        <article class="post">
+            <h2><a href="{% url 'posts:page' slug=post.slug %}">{{ post.title }}</a></h2>
+            <p>{{ post.date|date:"d M Y" }}</p>
+            <p>{{ post.body|striptags|truncatewords:30 }}</p>
+            <a href="{% url 'posts:page' slug=post.slug %}">Read more</a>
+        </article>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+</div>
+
+{% if page_obj.has_next %}
+    <div class="load-more-container">
+        <button 
+            id="load-more-btn" 
+            data-next-page="{{ page_obj.next_page_number }}" 
+            class="load-more-btn">
+            Load More
+        </button>
+    </div>
+{% endif %}

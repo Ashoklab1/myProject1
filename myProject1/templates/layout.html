@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}Django App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/"><span title="Home">🏠</span></a> |
+            <a href="/about"><span title="About">😀</span></a> |
+            <a href="{% url 'posts:post-list' %}"><span title="Posts">📰</span></a> |
+            {% if user.is_authenticated %}
+                <a href="{% url 'posts:new-post' %}"><span title="New Post">🆕</span></a> |
+                <form class="logout" action="{% url 'users:logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="logout-button" title="Logout">👋</button>
+                </form>
+            {% else %}
+                <a href="{% url 'users:register' %}"><span title="Register">🚀</span></a> |
+                <a href="{% url 'users:login' %}"><span title="Login">🔏</span></a>
+            {% endif %}
+        </div>
+        <div class="theme-toggle-container">
+            <button id="theme-toggle" title="Toggle theme">
+                <span id="theme-icon">🌙</span>
+                <span id="theme-label">Dark Mode</span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = document.getElementById('theme-icon');
+        const label = document.getElementById('theme-label');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                icon.textContent = '☀️';
+                label.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                icon.textContent = '🌙';
+                label.textContent = 'Dark Mode';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Load saved theme on page load
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        // Toggle theme on click
+        toggle.addEventListener('click', () => {
+            const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    </script>
+</body>
+</html>
