@@ -1,13 +1,25 @@
+import os
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'a$=pwz7sl-cgpw^-r7q7_@^=4g6d6%jo!-o@p0fe0vzkw*@49$'
+# 🔐 Secret Key from environment (never hardcode in production)
 
-DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+load_dotenv()
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
+# Load environment variables from .env file
+
+# ❗ Don't show debug info in production
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
+
+# 🌍 Add PythonAnywhere domain
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'yourusername.pythonanywhere.com']
+
+# 📦 Installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,6 +32,7 @@ INSTALLED_APPS = [
     'users',
 ]
 
+# 🛡 Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -50,6 +63,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myProject1.wsgi.application'
 
+# 🗄 SQLite (default)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -57,6 +71,7 @@ DATABASES = {
     }
 }
 
+# 🔐 Password Validators
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -64,19 +79,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# 🕓 Localization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Kolkata'
 USE_TZ = True
 
+# 📁 Static Files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'assets'
+STATIC_ROOT = BASE_DIR / 'assets'  # for collectstatic
 
-MEDIA_URL = 'media/'
+# 📁 Media Files
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# 🔧 Auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# ✍️ CKEditor
 CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
